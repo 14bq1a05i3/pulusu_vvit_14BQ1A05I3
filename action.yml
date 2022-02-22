@@ -1,13 +1,14 @@
 name: databricks-import-directory
 description: 'Github Action that imports a local directory into the Databricks Workspace'
 
+
 inputs:
   databricks-host:
     description: 'Databricks host'
     required: true
   databricks-token:
     description: 'Databricks token'
-    required: false
+    required: true
   local-path:
     description: 'LOCAL_NOTEBOOKS_PATH'
     required: true
@@ -21,7 +22,7 @@ runs:
     - id: import-notebooks
       run: | 
         echo "Uploading notebooks from $LOCAL_NOTEBOOKS_PATH to $REMOTE_NOTEBOOK_PATH in the workspace $DATABRICKS_HOST"
-        databricks workspace import_dir --overwrite "${LOCAL_NOTEBOOKS_PATH}" "${REMOTE_NOTEBOOK_PATH}" --debug
+        databricks workspace import_dir --overwrite "./notebooks" "/" --debug
       shell: bash
       env:
         DATABRICKS_HOST: ${{ inputs.databricks-host }}
