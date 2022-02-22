@@ -1,0 +1,25 @@
+name: Databricks CD
+
+on: 
+  push:
+    paths:
+      - "action.yml"
+      - "./github/workflows/cd.yml"
+      
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: install-databricks-cli
+        uses: microsoft/install-databricks-cli@v1.0.0
+        
+      - name: Import Databricks Notebooks
+        uses: ./
+        with:
+          databricks-host: ${{ secrets.ADB_HOST }}
+          databricks-token: ${{ secrets.ADB_TOKEN }}
+          local-path: ./notebooks
+          remote-path: /import-notebook
