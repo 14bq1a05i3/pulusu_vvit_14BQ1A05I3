@@ -8,7 +8,6 @@ on:
       - "action.yml"
       - "./github/workflows/cd.yml"
       
-      
 jobs:
   deploy:
     runs-on: ubuntu-latest
