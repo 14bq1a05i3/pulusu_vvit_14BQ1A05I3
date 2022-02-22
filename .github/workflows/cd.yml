@@ -2,6 +2,8 @@ name: Databricks CD
 
 on: 
   push:
+    branches:
+      - master
     paths:
       - "action.yml"
       - "./github/workflows/cd.yml"
