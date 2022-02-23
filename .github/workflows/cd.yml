@@ -20,34 +20,11 @@ jobs:
       
       - name: install-databricks-cli
         uses: microsoft/install-databricks-cli@v1.0.0
-        
-      - name: Install Azure cli
-        run: |
-          sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-          AZ_REPO=$(lsb_release -cs)
-          echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-          sudo apt-get update
-          sudo apt-get install azure-cli
-        
-      - uses: elstudio/action-install-azure-cli@v1
-        
-      - name: 'Az CLI login'
-        uses: azure/login@v1
-        with:
-            client-id: "8894b97f-acff-4637-a536-c0293b6ab3f4"
-            tenant-id: "f5222e6c-5fc6-48eb-8f03-73db18203b63"
-            subscription-id: "6f30d7aa-39a2-44ca-ab61-c9ba500fe1fb"
-
-      
-      - name: set-databricks-token
-        run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
-            
+ 
       - name: Import Databricks Notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ env.DATABRICKS_TOKEN }}
+          databricks-token: "dapi27254a735905154f66c9c4b0c9f79d4e-2"
           local-path: ./notebooks
           remote-path: /import-notebook
