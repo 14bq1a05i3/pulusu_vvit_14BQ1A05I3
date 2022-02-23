@@ -1,8 +1,6 @@
 name: Databricks CD
 
 on: 
-  pull_request:
-    types: [closed]
   push:
     branches:
       - master
@@ -16,15 +14,29 @@ jobs:
     
     
     steps:
+    
       - uses: actions/checkout@v2
       
       - name: install-databricks-cli
         uses: microsoft/install-databricks-cli@v1.0.0
         
+      - id: azure-resource-login
+        name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
+        uses: azure/login@v1
+        with:
+            client-id: "8894b97f-acff-4637-a536-c0293b6ab3f4"
+            tenant-id: "f5222e6c-5fc6-48eb-8f03-73db18203b63"
+            subscription-id: "6f30d7aa-39a2-44ca-ab61-c9ba500fe1fb"
+            enable-AzPSSession: true
+      
+      - name: set-databricks-token
+        run: | 
+          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
+            
       - name: Import Databricks Notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: "dapi27254a735905154f66c9c4b0c9f79d4e-2"
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
           local-path: ./notebooks
           remote-path: /import-notebook
