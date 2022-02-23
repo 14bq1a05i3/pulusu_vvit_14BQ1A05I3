@@ -27,7 +27,7 @@ jobs:
       
       - name: set-databricks-token
         run: | 
-          token=$(az account get-access-token --resource=c8807a23-7b1c-42ac-9c48-99686f967189 --query accessToken --output json)
+          token=$(az account get-access-token --resource=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d --query accessToken --output json)
           echo "DATABRICKS_TOKEN= $token" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
