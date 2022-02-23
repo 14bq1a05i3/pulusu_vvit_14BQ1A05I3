@@ -22,11 +22,16 @@ jobs:
         uses: Azure/azure-resource-login-action@v1.0.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-url: 6f30d7aa-39a2-44ca-ab61-c9ba500fe1fb
+      
+      - id: adb-login
+        name: Adquiring ADB Access Token
+        uses: Azure/azure-resource-login-action@v1.0.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.outputs.token }}" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
