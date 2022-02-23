@@ -1,25 +1,37 @@
-name: Run Azure Login with OIDC
-on: [push]
+name: Databricks CD with AAD Token
 
-permissions:
-      id-token: write
-      contents: read
+on:
+  pull_request:
+    types: [closed]
+  push:
+    paths:
+      - "action.yml"
+      - ".github/workflows/cd-aad.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+          
+      - name: install-databricks-cli
+        uses: microsoft/install-databricks-cli@v1.0.0
+        
+      - id: azure-resource-login
+        uses: Azure/azure-resource-login-action@v1.0.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-url: 6f30d7aa-39a2-44ca-ab61-c9ba500fe1fb
       
-jobs: 
-  Windows-latest:
-      runs-on: windows-latest
-      steps:
-        - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
-          uses: azure/login@v1
-          with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
-            enable-AzPSSession: true
-
-        - name: 'Get RG with powershell action'
-          uses: azure/powershell@v1
-          with:
-             inlineScript: |
-               Get-AzResourceGroup
-             azPSVersion: "latest"
+      - name: set-databricks-token
+        run: | 
+          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
+            
+      - name: Import Databricks notebooks
+        uses: ./
+        with:
+          databricks-host: ${{ secrets.ADB_HOST }}
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
+          local-path: ./notebooks
+          remote-path: /import-notebook
