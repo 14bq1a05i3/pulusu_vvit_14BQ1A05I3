@@ -31,6 +31,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install azure-cli
         
+      - uses: elstudio/action-install-azure-cli@v1
+      
+      - uses: azure/webapps-deploy@v2
+        
       - name: 'Az CLI login'
         uses: azure/login@v1
         with:
