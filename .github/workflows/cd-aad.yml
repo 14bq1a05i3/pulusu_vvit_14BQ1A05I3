@@ -32,9 +32,7 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/sample.sh
-            echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
-     
+            chmod +x $GITHUB_WORKSPACE/sample.sh     
      
       - name: set-databricks-token
         run: | 
