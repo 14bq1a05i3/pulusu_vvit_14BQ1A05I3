@@ -36,7 +36,7 @@ jobs:
      
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.access-key.outputs.access_token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
