@@ -22,6 +22,7 @@ jobs:
         uses: Azure/azure-resource-login-action@v1.0.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-url: 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d
       
       - name: set-databricks-token
         run: | 
