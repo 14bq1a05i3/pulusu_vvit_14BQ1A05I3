@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
           
+                  
+      - name: install-databricks-cli
+        uses: microsoft/install-databricks-cli@v1.0.0    
       
       - id: azure-resource-login
         uses: Azure/azure-resource-login-action@v1.0.0
@@ -32,12 +35,11 @@ jobs:
             chmod +x $GITHUB_WORKSPACE/sample.sh
             $GITHUB_WORKSPACE/sample.sh
      
+     
       - name: set-databricks-token
         run: | 
           echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
-            
-      - name: install-databricks-cli
-        uses: microsoft/install-databricks-cli@v1.0.0
+
         
       - name: Import Databricks notebooks
         uses: ./
