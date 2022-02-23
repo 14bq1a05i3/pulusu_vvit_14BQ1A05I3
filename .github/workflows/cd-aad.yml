@@ -23,12 +23,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-      
+      - id: token-get
+        run: "sample.sh"
+        shell: bash
       
       - name: set-databricks-token
         run: | 
-          token=$(az account get-access-token --resource=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d --query accessToken --output json)
-          echo "DATABRICKS_TOKEN= $token" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.token-get.outputs.access_token }}" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
