@@ -39,7 +39,7 @@ jobs:
       - name: set-databricks-token
         run: | 
           echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
-
+          databricks workspace import_dir --overwrite "./notebooks" "/" --debug
         
       - name: Import Databricks notebooks
         uses: ./
