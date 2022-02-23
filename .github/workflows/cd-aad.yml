@@ -26,7 +26,7 @@ jobs:
       
       - id: token-get
         name: bash-script
-        run: sample.sh
+        run: ".github/sample.sh"
         shell: bash
       
       - name: set-databricks-token
