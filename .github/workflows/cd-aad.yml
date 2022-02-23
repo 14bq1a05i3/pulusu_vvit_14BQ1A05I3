@@ -33,7 +33,6 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
-            $GITHUB_WORKSPACE/sample.sh
             echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
      
      
