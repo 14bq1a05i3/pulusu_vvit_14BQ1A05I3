@@ -31,7 +31,7 @@ jobs:
       
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.outputs.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.outputs.resourceToken }}" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
