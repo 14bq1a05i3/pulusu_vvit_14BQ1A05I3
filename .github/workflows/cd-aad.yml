@@ -1,8 +1,6 @@
 name: Databricks CD with AAD Token
 
 on:
-  pull_request:
-    types: [closed]
   push:
     paths:
       - "action.yml"
