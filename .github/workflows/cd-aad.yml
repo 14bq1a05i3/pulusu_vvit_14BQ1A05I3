@@ -19,7 +19,7 @@ jobs:
         uses: microsoft/install-databricks-cli@v1.0.0
         
       - id: azure-resource-login
-        uses: Azure/azure-resource-login-action@v1.0.0
+        uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
@@ -27,14 +27,13 @@ jobs:
       
       - name: set-databricks-token
         run: | 
-          echo ${{ steps.adb-login.outputs.resourceToken }}
-          
-          # echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.resourceToken }}" >> $GITHUB_ENV
+          token=$(az account get-access-token --resource=f5222e6c-5fc6-48eb-8f03-73db18203b63 --query accessToken --output tsv)
+          echo "DATABRICKS_TOKEN= $token" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ steps.azure-resource-login.outputs.resourceToken }}
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
           local-path: ./notebooks
           remote-path: /import-notebook
