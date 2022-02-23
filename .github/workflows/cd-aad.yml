@@ -19,11 +19,13 @@ jobs:
         uses: microsoft/install-databricks-cli@v1.0.0
         
       - id: azure-resource-login
-        uses: Azure/login@v1
+        uses: Azure/azure-resource-login-action@v1.0.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-url: 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d
       
       - id: token-get
+        name: bash-script
         run: "sample.sh"
         shell: bash
       
