@@ -23,8 +23,7 @@ jobs:
         uses: microsoft/install-databricks-cli@v1.0.0
         
       - id: azure-resource-login
-        name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
-        uses: Azure/azure-resource-login-action@v1.0.0
+        uses: azure/login@v1
         with:
             client-id: 8894b97f-acff-4637-a536-c0293b6ab3f4
             tenant-id: f5222e6c-5fc6-48eb-8f03-73db18203b63
