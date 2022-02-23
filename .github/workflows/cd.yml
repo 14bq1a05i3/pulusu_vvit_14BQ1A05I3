@@ -31,6 +31,7 @@ jobs:
             subscription-id: "6f30d7aa-39a2-44ca-ab61-c9ba500fe1fb"
             enable-AzPSSession: true
       
+      
       - name: set-databricks-token
         run: | 
           echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
