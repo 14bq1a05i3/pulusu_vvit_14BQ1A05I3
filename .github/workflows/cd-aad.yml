@@ -24,10 +24,18 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-url: 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d
       
+      - id: access-key
+        name: Azure CLI script file
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/sample.sh
+            $GITHUB_WORKSPACE/sample.sh
      
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.outputs.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.access-key.outputs.access_token }}" >> $GITHUB_ENV
             
       - name: Import Databricks notebooks
         uses: ./
