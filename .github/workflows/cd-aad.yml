@@ -42,6 +42,6 @@ jobs:
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ env.DATABRICKS_TOKEN }}
+          databricks-token: ${{ steps.access-key.outputs.access_token }}
           local-path: ./notebooks
           remote-path: /import-notebook
