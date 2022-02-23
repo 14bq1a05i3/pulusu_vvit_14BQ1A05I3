@@ -34,17 +34,17 @@ jobs:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
             $GITHUB_WORKSPACE/sample.sh
+            echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
      
      
       - name: set-databricks-token
         run: | 
           echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
-          databricks workspace import_dir --overwrite "./notebooks" "/" --debug
-        
+          
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ steps.access-key.access_token }}
+          databricks-token: ${{ steps.access-key.output.access_token }}
           local-path: ./notebooks
           remote-path: /import-notebook
