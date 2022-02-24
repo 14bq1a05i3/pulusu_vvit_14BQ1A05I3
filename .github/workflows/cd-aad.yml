@@ -31,13 +31,12 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            chmod +x $GITHUB_WORKSPACE/sample.sh
-            $GITHUB_WORKSPACE/sample.sh
+            Get-AzAccessToken
             
       - name: set-databricks-token
         shell: bash
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.outputs.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.access-key.outputs.token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
