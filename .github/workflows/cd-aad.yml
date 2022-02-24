@@ -22,7 +22,7 @@ jobs:
         uses: Azure/azure-resource-login-action@v1.0.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-url: "https://management.core.windows.net/"
+          resource-url: 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d
       
       - id: access-key
         name: Azure CLI script file
@@ -36,12 +36,12 @@ jobs:
       - name: set-databricks-token
         shell: bash
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.output.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.adb-login.outputs.token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ steps.adb-login.output.token }}
+          databricks-token: ${{ steps.adb-login.outputs.token }}
           local-path: ./notebooks
           remote-path: /import-notebook
