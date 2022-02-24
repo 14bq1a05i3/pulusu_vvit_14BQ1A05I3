@@ -48,7 +48,7 @@ jobs:
           inlineScript: |
             hostname
             
-            az account get-access-token
+            Az-GetAccessToken --token
             
             
             
