@@ -36,5 +36,5 @@ jobs:
           hostname
           az group list --output table
           Get-AzAccessToken
-          echo "TOKEN=${{ Token }}" >>$GITHUB_ENV
-          echo ${{ env.TOKEN }}
+          
+          echo ${{ TOKEN }}
