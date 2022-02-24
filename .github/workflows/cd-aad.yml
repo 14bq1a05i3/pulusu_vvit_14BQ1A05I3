@@ -47,8 +47,9 @@ jobs:
           azPSVersion: '3.1.0'
           inlineScript: |
             hostname
-            $token = Get-AzAccessToken
-            echo $token
+            echo '::echo::on'
+            Get-AzAccessToken
+            
             
             
       - name: set-databricks-token
