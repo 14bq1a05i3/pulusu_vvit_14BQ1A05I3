@@ -8,6 +8,7 @@ on:
       - "action.yml"
       - ".github/workflows/cd-aad.yml"
 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
