@@ -53,7 +53,7 @@ jobs:
       - name: set-databricks-token
         shell: bash
         run: |
-          
+          echo "DATABRICKS_TOKEN1= ${{ steps.az-access.Token }}" >> $GITHUB_ENV
           echo "DATABRICKS_TOKEN= ${{ steps.az-access.outputs.Token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
