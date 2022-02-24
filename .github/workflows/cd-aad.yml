@@ -47,20 +47,22 @@ jobs:
           azPSVersion: '3.1.0'
           inlineScript: |
             hostname
-            
-            Az-GetAccessToken --token
-            
+            $context = Get-AzContext
+            $resource = Get-AzAccessToken -ResourceUrl 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d -DefaultProfile $context
+            $resourceToken = $resource.Token
+            write-host "::debug::Setting 'token' variable to $resourceToken"
+            write-host "::set-output name=token::$resourceToken"
             
             
       - name: set-databricks-token
         shell: bash
         run: |
-          echo "DATABRICKS_TOKEN= ${{ steps.az-access.outputs.accessToken }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.az-access.outputs.token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net/oauth/authorize"
-          databricks-token: ${{ steps.az-access.outputs.accessToken }}
+          databricks-token: ${{ steps.az-access.outputs.token }}
           local-path: ./notebooks
           remote-path: /import-notebook
