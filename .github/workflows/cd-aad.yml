@@ -33,12 +33,28 @@ jobs:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
             $GITHUB_WORKSPACE/sample.sh
+           
+      - name: Login to AzureStack with Az Powershell
+        uses: azure/login@releases/v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: 'AzureStack'
+          enable-AzPSSession: true
+
+      - id: az-access
+        name: Run Az PowerShell Script Against AzureStack
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: '3.1.0'
+          inlineScript: |
+            hostname
+            Get-AzAccessToken
             
       - name: set-databricks-token
         shell: bash
         run: |
-          Get-AzAccessToken
-          echo "DATABRICKS_TOKEN= ${{ steps.access-key.outputs.token }}" >> $GITHUB_ENV
+          
+          echo "DATABRICKS_TOKEN= ${{ steps.az-access.outputs.Token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
