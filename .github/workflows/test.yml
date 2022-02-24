@@ -21,7 +21,6 @@ jobs:
           azPSVersion: '3.1.0'
           inlineScript: |
             hostname
-            Get-AzContext
             Get-AzResourceGroup
 
       - name: Login to AzureStack with CLI
