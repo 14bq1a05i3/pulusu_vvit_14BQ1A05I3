@@ -31,6 +31,7 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/sample1.sh
+            $GITHUB_WORKSPACE/sample1.sh
             
       - name: set-databricks-token
         run: | 
@@ -40,6 +41,6 @@ jobs:
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ steps.access-key.output.access_token }}
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
           local-path: ./notebooks
           remote-path: /import-notebook
