@@ -31,16 +31,16 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
-            $GITHUB_WORKSPACE/sample.sh
+            azure storage -h
             
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.output.resourceToken }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.resourceToken }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ env.DATABRICKS_TOKEN }}
+          databricks-token: ${{ steps.azure-resource-login.output.resourceToken }}
           local-path: ./notebooks
           remote-path: /import-notebook
