@@ -26,10 +26,8 @@ jobs:
       
       - id: access-key
         name: Azure CLI script file
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.30.0
-          inlineScript: |
+        shell: bash
+        run: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
             $GITHUB_WORKSPACE/sample.sh
            
