@@ -22,7 +22,7 @@ jobs:
         uses: Azure/azure-resource-login-action@v1.0.0
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-type-name: AadGraph
+          resource-url: "https://management.core.windows.net/"
       
       - id: access-key
         name: Azure CLI script file
