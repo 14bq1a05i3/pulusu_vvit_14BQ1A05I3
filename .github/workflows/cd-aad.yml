@@ -50,12 +50,12 @@ jobs:
       - name: set-databricks-token
         shell: bash
         run: |
-          echo "DATABRICKS_TOKEN= ${{ steps.az-access.outputs.token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.access-key.outputs.access_token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: ${{ steps.az-access.outputs.token }}
+          databricks-token: ${{ steps.access-key.outputs.access_token }}
           local-path: ./notebooks
           remote-path: /import-notebook
