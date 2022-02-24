@@ -48,7 +48,7 @@ jobs:
           inlineScript: |
             hostname
             $token = Get-AzAccessToken
-            
+            echo $token
             
             
       - name: set-databricks-token
