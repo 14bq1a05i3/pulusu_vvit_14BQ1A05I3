@@ -44,15 +44,10 @@ jobs:
         name: Run Az PowerShell Script Against AzureStack
         uses: azure/powershell@v1
         with:
-          shell: pwsh
-          run: |
+          azPSVersion: '3.1.0'
+          inlineScript: |
             hostname
-            $context = Get-AzContext
-            $resource = Get-AzAccessToken -ResourceUrl 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d -DefaultProfile $context
-            $resourceToken = $resource.Token
-            write-host "::debug::Setting 'token' variable to $resourceToken"
-            write-host "::set-output name=token::$resourceToken"
-            
+            "Get-AzAccessToken"
             
       - name: set-databricks-token
         shell: bash
