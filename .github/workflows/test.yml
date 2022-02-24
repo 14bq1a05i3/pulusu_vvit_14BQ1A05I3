@@ -1,0 +1,37 @@
+on: [push]
+
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+jobs: 
+  azurestack-test:
+    runs-on: self-hosted
+    steps:
+
+      - name: Login to AzureStack with Az Powershell
+        uses: azure/login@releases/v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: 'AzureStack'
+          enable-AzPSSession: true
+
+      - name: Run Az PowerShell Script Against AzureStack
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: '3.1.0'
+          inlineScript: |
+            hostname
+            Get-AzContext
+            Get-AzResourceGroup
+
+      - name: Login to AzureStack with CLI
+        uses: azure/login@releases/v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          environment: 'AzureStack'
+          enable-AzPSSession: false
+
+      - name: Run Azure CLI Script Against AzureStack
+        run: |
+          hostname
+          az group list --output table
