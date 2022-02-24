@@ -22,6 +22,7 @@ jobs:
           inlineScript: |
             hostname
             Get-AzAccessToken
+            az account get-access-token
 
       - name: Login to AzureStack with CLI
         uses: azure/login@releases/v1
