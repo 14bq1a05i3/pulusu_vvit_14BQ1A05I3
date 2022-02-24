@@ -34,6 +34,7 @@ jobs:
             $GITHUB_WORKSPACE/sample.sh
             
       - name: set-databricks-token
+        shell: bash
         run: | 
           echo "DATABRICKS_TOKEN= ${{ steps.adb-login.output.token }}" >> $GITHUB_ENV
           
