@@ -44,7 +44,7 @@ jobs:
         name: Run Az PowerShell Script Against AzureStack
         uses: azure/powershell@v1
         with:
-          shell: bash
+          shell: pwsh
           run: |
             hostname
             $context = Get-AzContext
