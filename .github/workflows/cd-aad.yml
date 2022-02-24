@@ -49,6 +49,7 @@ jobs:
           inlineScript: |
             hostname
             Get-AzAccessToken
+            echo "::set-output name=token::${{ Token }}"
             
       - name: set-databricks-token
         shell: bash
