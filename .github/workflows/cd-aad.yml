@@ -8,15 +8,13 @@ on:
       - "action.yml"
       - ".github/workflows/cd-aad.yml"
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v2 
-          
-                  
+                    
       - name: install-databricks-cli
         uses: microsoft/install-databricks-cli@v1.0.0    
       
@@ -37,7 +35,7 @@ jobs:
             
       - name: set-databricks-token
         run: | 
-          echo "DATABRICKS_TOKEN= ${{ steps.access-key.access_token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ steps.azure-resource-login.output.resourceToken }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
