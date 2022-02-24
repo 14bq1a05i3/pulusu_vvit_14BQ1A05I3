@@ -37,13 +37,12 @@ jobs:
             
       - name: set-databricks-token
         run: | 
-          $resource = Get-AzAccessToken -ResourceUrl 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d -DefaultProfile Get-AzContext
-          echo "DATABRICKS_TOKEN= ${{ steps.access-key.output.access_token }}" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN= ${{ access_token }}" >> $GITHUB_ENV
           
       - name: Import Databricks notebooks
         uses: ./
         with:
           databricks-host: "https://adb-2700622637314445.5.azuredatabricks.net"
-          databricks-token: $resource
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
           local-path: ./notebooks
           remote-path: /import-notebook
