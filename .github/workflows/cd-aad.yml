@@ -29,8 +29,8 @@ jobs:
         shell: bash
         run: |
             chmod +x $GITHUB_WORKSPACE/sample.sh
-            $GITHUB_WORKSPACE/sample.sh
-            echo "::set-output name=access_token::$access_token"
+            access = "$($GITHUB_WORKSPACE/sample.sh)"
+            echo "::set-output name=access_token::${access}"
            
       - name: Login to AzureStack with Az Powershell
         uses: azure/login@releases/v1
