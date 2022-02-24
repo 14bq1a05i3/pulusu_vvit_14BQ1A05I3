@@ -21,7 +21,7 @@ jobs:
           azPSVersion: '3.1.0'
           inlineScript: |
             hostname
-            Get-AzResourceGroup
+            Get-AzAccessToken
 
       - name: Login to AzureStack with CLI
         uses: azure/login@releases/v1
